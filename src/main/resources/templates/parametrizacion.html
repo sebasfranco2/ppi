@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout  :: header"></header>
+	<div class="container my-3">
+		<div class="card">
+			<div class="card-header">
+				<h5 class="card-title">Paremetrizacion</h5>
+			</div>
+			<div class="card-body">
+				<form action="" method="post" th:object="*{servicio}">
+					<div class="form-group">
+						<label class="col-form-label col-sm-2" for="tipoVehiculo">Tipo Vehiculo</label>
+						<div class="col-sm-6">
+							<input class="form-control" name="tipoVehiculo" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

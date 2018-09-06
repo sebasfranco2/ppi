@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container my-3">
+		<div class="card">
+			<div class="card-header">
+				<h4 class="card-title">Crear Usuario</h4>
+			</div>
+			<div class="card-body">
+				<form th:action="@{/usuario/crear}" method="post" th:object="${usuario}">
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label class="col-form-label">Nombres</label>
+							<input class="form-control" type="text" th:field="*{nombre}"
+									data-validetta="required,maxlength[45]"/>
+							<span  class="validetta-bubble validetta-bubble--right" style="top:0px; left:549px;"
+								   th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+							
+						</div>
+						<div class="form-group col-md-6">
+							<label class="col-form-label">Apellidos</label>
+							<input class="form-control" type="text" th:field="*{apellido}"
+									data-validetta="required, maxLength[45]"/>
+							<span class="validetta-bubble validetta-bubble--right" style="top:0px; left:549px;"
+								   th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></span>
+						</div>
+						<div class="form-group col-md-6">
+							<label class="col-form-label">Email</label>
+							<input class="form-control" type="text" th:field="*{email}" data-validetta="email,maxLength[50], required"/>
+							<span class="validetta-bubble validetta-bubble--right" style="top:0px; left:549px;"
+								   th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+							<span class="validetta-bubble validetta-bubble--right" style="top:0px; left:549px;"
+								  th:if="${existe != null}" th:text="${existe}"></span>
+						</div>
+						<div class="form-group col-md-6">
+							<label class="col-form-label">Contraseña</label>
+							<input class="form-control" type="password" th:field="*{contrasena}" 
+								   data-validetta="required, minLenght[8]"/>
+							<span class="validetta-bubble validetta-bubble--right" style="top:0px; left:549px;" 
+								   th:if="${#fields.hasErrors('contrasena')}" th:errors="*{contrasena}"></span>
+							
+						</div>
+						<div class="form-group col-md-6 d-flex justify-content-end">
+							<input class="btn btn-primary btn-xs" type="submit" value="Guardar"/>
+						</div>
+						<div class="form-group col-md-6">
+							<a class="btn btn-danger btn-xs" th:href="@{/usuario/listar}">Cancelar</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

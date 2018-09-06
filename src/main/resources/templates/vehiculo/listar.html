@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container my-3">
+		<div class="card">
+			<div class="card-header">
+				<div class="row">
+					<div class="d-flex justify-content-start col-md-6">
+						<h5 class="card-title">Lista De Vehiculos</h5>
+					</div>
+					<div class="d-flex justify-content-end col-md-6">
+						<form action="#" method="post">
+							<input type="text" name="id" id="id" class="form-control"
+								placeholder="Buscar Placa" onkeyup="load()"/>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<a th:href="@{/vehiculo/crear/}" class="btn btn-primary mb-1">Crear
+					Vehiculo</a>
+				<div id="vehiculo">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Cedula</th>
+								<th>Nombre</th>
+								<th>Apellido</th>
+								<th>Placa</th>
+								<th>Tipo De Vehiculo</th>
+								<th>Registrar Servicios</th>
+								<th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
+								<th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="vehiculo : ${vehiculo}">
+								<td th:text="${vehiculo.cedula}"></td>
+								<td th:text="${vehiculo.nombre}"></td>
+								<td th:text="${vehiculo.apellido}"></td>
+								<td th:text="${vehiculo.placa}"></td>
+								<td th:text="${vehiculo.tiposVehiculos.tipoVehiculo}"></td>
+								<td><a class="btn btn-success btn-xs" th:href="@{'/cobro/crear/' + ${vehiculo.id}}"
+									th:if="${factura == null}">Registrar Servicios</a></td>
+								<td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{'/vehiculo/crear/' + ${vehiculo.id}}" class="btn btn-primary">Editar</a></td>
+								<td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{'/vehiculo/eliminar/' + ${vehiculo.id}}" class="btn btn-danger" 
+								onclick="return confirm('Quieres Eliminar El Vehiculo?')">Eliminar</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<nav th:replace="layout/paginador :: paginacion"></nav>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+	<script	th:src="@{/js/buscar.js}"></script>
+	
+</body>
+</html>

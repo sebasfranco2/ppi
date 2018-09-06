@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+	<meta charset="utf-8" />
+	<title>Serviteca Fast Wash</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/validetta.min.css}" />
+	
+</head>
+<body>
+	<header th:fragment="header">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">Serviteca Fast Wash</a>
+			<button class="navbar-toggler" type="button">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link" th:href="@{/listar}"
+						th:if="${vehiculo == null}">Vehiculo</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/servicio/listar}" th:if="${servicio == null}">Servicio</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/usuario/listar}"
+						th:if="${usuario == null}">Usuario</a></li>
+					<li class="nav-item"><a class="nav-link" 
+						th:href="@{/vehiculo}" th:if="${consulta == null}">Consulta</a></li>
+					<li class="nav-item"><a class="nav-link" 
+						th:href="@{/informe}" th:if="${informe == null}">Informes</a></li>					
+				</ul>
+				<ul >
+					<li class="navbar-nav navbar-right" sec:authorize="!isAuthenticated()">
+						<a th:href="@{/login}" class="btn btn-outline-primary"> Iniciar Sesión</a>
+					</li>
+					<li class="dropdown" sec:authorize="isAuthenticated()">
+						  <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    <span sec:authentication="name"></span>
+						  </a>
+						
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+						   	<form id="logout" th:action="@{/logout}" method="post">
+						   		<button class="dropdown-item" type="submit" >Cerrar Sesión</button>
+						   	</form>
+						  </div>
+					 </li>
+				</ul>
+			</div>
+		</nav>
+		<div class="alert alert-success" th:if="${success != null }" th:text="${success}"></div>
+		<div class="alert alert-danger" th:if="${danger != null}" th:text="${danger}"></div>
+		<div class="alert alert-warning" th:if="${warning != null}" th:text="${warning}"></div>
+		<div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
+	</header>
+	<footer th:fragment="footer" class="container">
+		<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
+		<script	th:src="@{/js/bootstrap.min.js}"></script>
+		<script	th:src="@{/js/validetta.min.js}"></script>
+		<script	th:src="@{/js/validettaLang-es-ES.js}"></script>
+		<script>
+		$(document).ready(function(){
+			$("#form").validetta()
+		})
+	</script>	
+	</footer>
+	
+</body>
+</html>

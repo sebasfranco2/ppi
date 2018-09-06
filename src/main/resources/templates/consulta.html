@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container my-3">
+		<div class="card">
+			<div class="card-header">
+				<h4 class="card-title">Consulta</h4>
+			</div>
+			<div class="card-body">
+				<form class="form-inline d-flex justify-content-center">
+					<div class="form-group">
+						<input id="fechaI" type="text" name="fechaI" class="form-control mr-2" readonly>
+						<input id="fechaF" type="text"  name="fechaF" class="form-control mr-2" readonly>
+						<button class="btn btn-primary" id="consulta">Consultar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div>
+		
+	</div>
+	<footer th:replace="loypu/layout :: footer"></footer>
+	<script th:src="@{/js/datepicker-es.js}"></script>
+	<script>      
+		$("#fechaI").datepicker($.datepicker.regional["es"]);
+		$("#fechaF").datepicker($.datepicker.regional["es"]);
+	</script>
+</body>
+</html>

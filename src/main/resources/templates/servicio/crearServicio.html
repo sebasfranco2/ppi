@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container my-3">
+		<div class="card">
+			<div class="card-header">
+				<h5 class="card-title">Crear Servicio</h5>
+			</div>
+			<div class="card-body">
+				<form th:action="@{/servicio/crear}" method="post" th:object="${servicio}" id="form">
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">Nombre</label>
+						<div class="col-md-6 has-feedback has-success">
+							<input class="form-control" data-validetta="required maxlength[45]" type="text" th:field="*{nombre}"/>
+							
+							<small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">Precio</label>
+						<div class="col-md-6">
+							<input class="form-control" type="text" id="precio" th:field="*{precio}"
+							 data-validetta="number, required"/>
+							<span class="validetta-bubble validetta-bubble--right" style="top:0px; left:549px;" 
+									th:if="${#fields.hasErrors('precio')}">El Campo Es Obligatorio!</span>
+							
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">Tipo Vehiculo</label>
+						<div class="col-md-6 has-feedback has-success">
+							<select class="form-control" th:field="*{tiposVehiculos}" data-validetta="required">
+								<option value="">Escoja Un Tipo De Vehiculo</option>
+								<option th:each="vehiculo : ${tipoVehiculo}" 
+										th:value="${vehiculo.id}" th:utext="${vehiculo.tipoVehiculo}">
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-6  d-flex justify-content-end">
+							<input type="submit" class="btn btn-primary btn-xs" id="guardar" value="Guardar"/>
+						</div>
+						<div class="col-md-6">
+							<a class="btn btn-danger text-white">Cancelar</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+
+</html>

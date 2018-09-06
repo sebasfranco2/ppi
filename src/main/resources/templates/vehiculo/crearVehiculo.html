@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container my-3">
+		<div class="card">
+			<div class="card-header ">
+				<h5 class="card-title">Crear Vehiculo</h5>
+			</div>
+			<div class="card-body">
+				<form th:action="@{/vehiculo/crear/}" method="post" th:object="${vehiculo}" id="form">		
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="cedula">Cedula</label> 
+							<input type="text" class="form-control" th:field="*{cedula}" data-validetta="required, number, minlength[6]"/>
+							<span class="validetta-bubble validetta-bubble--right" style="top:32px; left:549px;"
+								   th:if="${#fields.hasErrors('cedula')}" th:errors="*{cedula}"></span>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="nombre">Nombre</label>
+					  		<input type="text"	class="form-control" th:field="*{nombre}" data-validetta="required" />
+					  		<span class="validetta-bubble validetta-bubble--right" style="top:32px; left:549px;"
+					  		  th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="apellido">Apellido</label>
+							<input type="text"	class="form-control" th:field="*{apellido}" data-validetta="required" />
+							<span class="validetta-bubble validetta-bubble--right" style="top:32px; left:549px;" 
+								  th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></span>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="placa">Placa</label> 
+							<input type="text"	class="form-control" th:field="*{placa}" data-validetta="required"/>
+							<span class="validetta-bubble validetta-bubble--right" style="top:0px; left:549px;" 
+									th:if="${#fields.hasErrors('placa')}" th:errors="*{placa}"></span>
+							<span class="validetta-bubble validetta-bubble--right" style="top:32px; left:549px;"
+								  th:if="${existe != null}" th:text="${existe}"></span>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="tiposVehiculos">Tipo Vehiculo</label>
+							<select th:field="*{tiposVehiculos}" class="form-control" data-validetta="required">
+								<option value="">Escoga Una Opción</option>
+								<option th:each="vehiculo: ${tipoVehiculo}"
+									th:value="${vehiculo.id}" th:utext="${vehiculo.tipoVehiculo}"></option>
+							</select>
+							<span class="validetta-bubble validetta-bubble--right" style="top:32px; left:549px;"
+								   th:if="${#fields.hasErrors('tiposVehiculos')}" th:errors="*{tiposVehiculos}"></span>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="d-flex col-md-6 justify-content-end">
+							<input type="submit" class="btn btn-primary " value="Guardar"/>
+						</div>
+						<div class="col-md-6">
+							<a th:href="@{/vehiculo/listar}" class="btn btn-danger">Cancelar</a>
+						</div>
+					</div>
+				  </form>
+				</div>
+		</div>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

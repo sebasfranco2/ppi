@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container my-3">
+		<div class="card">
+			<div class="card-header">
+				<h5 class="card-title">Listar Servicio</h5>
+			</div>
+			<div class="card-body">
+				<a th:href="@{/servicio/crear}" class="btn btn-primary btn-xs mb-2">Crear Servicio</a>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Precio</th>
+							<th>Tipo Vehiculo</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')")>Editar</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="servicio : ${servicio}">
+							<td th:text="${servicio.nombre}"></td>
+							<td th:text="${servicio.precio}"></td>
+							<td th:each="vehiculo : ${servicio.tiposVehiculos}" th:text="${vehiculo.tipoVehiculo}"></td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')">
+								<a th:href="@{'/servicio/crear/' + ${servicio.id}}" class="btn btn-primary">Editar</a>
+							</td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')">
+								<a th:href="@{'/servicio/eliminar/' + ${servicio.id}}" class="btn btn-danger"
+									onclick="return confirm('Quieres Elimanar El Servicio?')">Eliminar</a>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
